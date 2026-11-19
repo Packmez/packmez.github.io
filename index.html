@@ -1,28 +1,247 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link href="main.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PackMez — Mobile Apps & Games</title>
+  <meta name="description" content="PackMez crafts focused, offline-first mobile apps and games.">
+  <style>
+    :root {
+      --bg: #0b0f19;
+      --surface: rgba(255, 255, 255, 0.04);
+      --surface-hover: rgba(255, 255, 255, 0.08);
+      --border: rgba(255, 255, 255, 0.1);
+      --text: #f3f4f6;
+      --muted: #9ca3af;
+      --accent: #6366f1;
+      --accent-soft: rgba(99, 102, 241, 0.15);
+    }
 
-    <title>Packmez Games</title>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background-color: var(--bg);
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.16), transparent 45%),
+        radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.12), transparent 45%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 32px 20px;
+      line-height: 1.6;
+    }
+
+    main {
+      width: 100%;
+      max-width: 680px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #a5b4fc;
+      background: var(--accent-soft);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+      background: linear-gradient(135deg, #ffffff 0%, #c7d2fe 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      margin: 0 auto 40px;
+    }
+
+    .app-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 28px;
+      text-align: left;
+      backdrop-filter: blur(12px);
+      transition: border-color 0.2s ease, transform 0.2s ease;
+      margin-bottom: 36px;
+    }
+
+    .app-card:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .app-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .app-pill {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #34d399;
+      background: rgba(16, 185, 129, 0.14);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 4px 10px;
+      border-radius: 999px;
+    }
+
+    .app-desc {
+      color: var(--muted);
+      font-size: 0.96rem;
+      margin-bottom: 20px;
+    }
+
+    .app-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background: #4f46e5;
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-hover);
+    }
+
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .social-link {
+      width: 46px;
+      height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+
+    .social-link:hover {
+      background: var(--surface-hover);
+      border-color: rgba(255, 255, 255, 0.25);
+      transform: translateY(-2px);
+    }
+
+    .social-link svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    footer {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    @media (max-width: 480px) {
+      .app-card {
+        padding: 22px;
+      }
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
+<body>
+  <main>
+    <span class="badge">Indie Mobile Studio</span>
+    <h1>PackMez</h1>
+    <p class="tagline">A group of young entrepreneurs crafting simple, offline-first mobile apps and games.</p>
 
-<body id="backgroundBody">
-    <div id="textBody">
-        <h1 style="font-size:300%;">Packmez Games</h1>
-        <p style="font-size:160%;">A Group of Young Entrepreneurs</p>
-        <div>
-            <a href="" class="fa fa-twitter" target="_blank" rel="noopener noreferrer"></a>
-            <a href="" class="fa fa-facebook" target="_blank" rel="noopener noreferrer"></a>
-            <a href="https://www.instagram.com/packmezapp" class="fa fa-instagram" target="_blank" rel="noopener noreferrer"></a>
-            <a href="" class="fa fa-linkedin" target="_blank" rel="noopener noreferrer"></a>
-            <a href="https://www.youtube.com/channel/UCiCoAfE1cXX6t-Kg-QFKtpg" class="fa fa-youtube" target="_blank" rel="noopener noreferrer"></a>
-        </div>
+    <section class="app-card">
+      <div class="app-header">
+        <div class="app-title">Stillbit: ADHD Habit &amp; Focus</div>
+        <span class="app-pill">Android • Offline-First</span>
+      </div>
+      <p class="app-desc">
+        A calm, distraction-free habit tracker and focus companion designed to help you build sustainable daily routines without account walls or clutter.
+      </p>
+      <div class="app-actions">
+        <!-- Uygulama Play Store'da yayına girince href="#" kısmına mağaza linkini koyabilirsin -->
+        <a href="#" class="btn btn-primary" aria-disabled="true">Coming Soon on Google Play</a>
+        <a href="stillbit/privacy-policy.html" class="btn btn-secondary">Privacy Policy</a>
+      </div>
+    </section>
 
+    <div class="socials" aria-label="Social Links">
+      <a href="https://www.instagram.com/packmezapp" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UCiCoAfE1cXX6t-Kg-QFKtpg" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+      </a>
     </div>
-</body>
 
+    <footer>
+      &copy; 2026 PackMez. All rights reserved.
+    </footer>
+  </main>
+</body>
 </html>
